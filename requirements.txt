@@ -1,4 +1,0 @@
-fastapi[standard]
-sqlmodel
-boto3
-python-dotenv
