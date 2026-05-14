@@ -1,0 +1,476 @@
+/* YOUTUBESTR - styles mobile first */
+ 
+/* variables del tema oscuro */
+:root {
+  --fondo: #0f0f0f;
+  --fondo-elevado: #1f1f1f;
+  --fondo-hover: #272727;
+  --texto: #f1f1f1;
+  --texto-suave: #aaaaaa;
+  --borde: #303030;
+  --acento: #ff0033;
+  --acento-hover: #cc0029;
+  --sombra: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --radio: 12px;
+  --transicion: 0.2s ease;
+  --ancho-sidebar: 200px;
+}
+ 
+/* reset basico con box-sizing global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+/* tipografia del sistema, sin cargar fuentes externas */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+ 
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+ 
+/* HEADER */
+ 
+/* sticky arriba con separador inferior */
+.site-header {
+  background-color: var(--fondo);
+  border-bottom: 1px solid var(--borde);
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+ 
+/* logo en acento rojo */
+.site-header .logo h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--acento);
+  letter-spacing: -0.5px;
+  transition: opacity var(--transicion);
+}
+.site-header .logo:hover h1 { opacity: 0.8; }
+ 
+/* LAYOUT DEL INDEX */
+ 
+/* en movil el layout es una sola columna, el sidebar esta oculto */
+.layout-index {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+ 
+/* MAIN */
+ 
+/* el main crece y empuja el footer al final */
+.site-main,
+.reproductor {
+  flex: 1;
+  padding: 1rem;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+ 
+/* SIDEBAR (DESKTOP) */
+ 
+/* oculto en movil por defecto, se activa en media query */
+.sidebar { display: none; }
+ 
+.sidebar-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+ 
+/* cada item del sidebar como link ancho con icono y texto */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--texto);
+  transition: background-color var(--transicion);
+}
+.sidebar-item:hover { background-color: var(--fondo-elevado); }
+ 
+/* item activo del sidebar, fondo resaltado */
+.sidebar-item.activo {
+  background-color: var(--fondo-hover);
+  font-weight: 600;
+}
+ 
+/* icono del item con tamano fijo */
+.sidebar-icono {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+ 
+/* FILTROS (CHIPS) */
+ 
+/* contenedor con scroll horizontal si no caben */
+.filtros {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.filtros ul {
+  display: flex;
+  gap: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+ 
+/* pildora gris, se aclara en hover */
+.chip {
+  background-color: var(--fondo-elevado);
+  color: var(--texto);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color var(--transicion), color var(--transicion);
+}
+.chip:hover { background-color: var(--fondo-hover); }
+ 
+/* estado activo invertido para que se note */
+.chip.activo {
+  background-color: var(--texto);
+  color: var(--fondo);
+}
+ 
+/* GRID DE VIDEOS (INDEX) */
+ 
+/* una columna en movil */
+.grid-videos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+ 
+/* card animada al entrar */
+.video-card {
+  border-radius: var(--radio);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transicion);
+  animation: fadeIn 0.3s ease;
+}
+.video-card:hover { transform: translateY(-2px); }
+ 
+/* aspect-ratio 16:9 evita saltos de layout al cargar la imagen */
+.video-card .miniatura {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radio);
+  background-color: var(--fondo-elevado);
+  transition: filter var(--transicion);
+}
+.video-card:hover .miniatura { filter: brightness(1.05); }
+ 
+.video-card .info { padding: 0.75rem 0.25rem; }
+ 
+/* titulo cortado a 2 lineas con elipsis */
+.video-card .titulo {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--texto);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+.video-card .categoria {
+  font-size: 0.875rem;
+  color: var(--texto-suave);
+}
+ 
+/* mensaje para vacio o error de fetch */
+.mensaje-estado {
+  text-align: center;
+  color: var(--texto-suave);
+  padding: 3rem 1rem;
+  font-size: 1rem;
+}
+ 
+/* REPRODUCTOR */
+ 
+/* movil apilado, una columna */
+.reproductor {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+ 
+.video-principal video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: var(--radio);
+}
+.video-principal h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  line-height: 1.3;
+}
+ 
+/* categoria como pildora pequena */
+.video-categoria {
+  display: inline-block;
+  background-color: var(--fondo-elevado);
+  color: var(--texto-suave);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+ 
+/* descripcion con separador superior */
+.video-descripcion {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--borde);
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+}
+ 
+/* RECOMENDADOS (ASIDE) */
+ 
+.recomendados h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.lista-recomendados {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+ 
+/* layout horizontal, miniatura izquierda y texto derecha */
+.recomendado-card {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: background-color var(--transicion);
+  animation: fadeIn 0.3s ease;
+}
+.recomendado-card:hover { background-color: var(--fondo-elevado); }
+ 
+.recomendado-card .miniatura {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: var(--fondo-elevado);
+}
+.recomendado-card .info {
+  display: flex;
+  flex-direction: column;
+}
+.recomendado-card .titulo {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--texto);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+.recomendado-card .categoria {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+ 
+/* COMENTARIOS */
+ 
+.comentarios h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+ 
+/* formulario contenido en un bloque elevado */
+.form-comentario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--fondo-elevado);
+  border-radius: var(--radio);
+}
+.form-comentario label {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  font-weight: 500;
+}
+ 
+/* inputs con borde sutil, foco en acento */
+.form-comentario input,
+.form-comentario textarea {
+  background-color: var(--fondo);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border-color var(--transicion);
+}
+.form-comentario input:focus,
+.form-comentario textarea:focus {
+  outline: none;
+  border-color: var(--acento);
+}
+ 
+/* boton publicar en acento, alineado a la derecha */
+.form-comentario button {
+  align-self: flex-end;
+  background-color: var(--acento);
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color var(--transicion);
+}
+.form-comentario button:hover { background-color: var(--acento-hover); }
+ 
+/* lista de comentarios con separadores entre items */
+.lista-comentarios {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.comentario {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--borde);
+  animation: fadeIn 0.3s ease;
+}
+.comentario:last-child { border-bottom: none; }
+.comentario .autor {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--texto);
+}
+.comentario .contenido {
+  font-size: 0.95rem;
+  color: var(--texto);
+  white-space: pre-wrap;
+}
+ 
+/* FOOTER */
+ 
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-top: 1px solid var(--borde);
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
+ 
+/* ANIMACIONES */
+ 
+/* entrada suave para cards y comentarios */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+ 
+/* MEDIA QUERIES mobile first */
+ 
+/* tablet, 2 columnas en el grid */
+@media (min-width: 600px) {
+  .site-header { padding: 0.75rem 1.5rem; }
+  .site-main, .reproductor { padding: 1.5rem; }
+  .grid-videos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 1rem;
+  }
+}
+ 
+/* laptop, aparece el sidebar lateral y el layout pasa a 2 columnas */
+@media (min-width: 960px) {
+ 
+  /* layout de dos columnas, sidebar pegado al borde izquierdo y main a la derecha */
+  .layout-index {
+    display: grid;
+    grid-template-columns: var(--ancho-sidebar) 1fr;
+    width: 100%;
+  }
+ 
+  /* el main del index ya no se centra para no separarse del sidebar */
+  .layout-index .site-main {
+    max-width: none;
+    margin: 0;
+  }
+ 
+  /* sidebar visible y sticky, queda fijo al hacer scroll */
+  .sidebar {
+    display: block;
+    padding: 1.5rem 0.75rem;
+    position: sticky;
+    top: 60px;
+    align-self: start;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+ 
+  /* grid del main pasa a 3 columnas */
+  .grid-videos { grid-template-columns: repeat(3, 1fr); }
+ 
+  /* layout del reproductor con video, aside y comentarios */
+  .reproductor {
+    grid-template-columns: minmax(0, 2.5fr) minmax(280px, 1fr);
+    grid-template-areas:
+      "video aside"
+      "comentarios aside";
+    column-gap: 2rem;
+    row-gap: 1.5rem;
+    padding: 1.5rem 2rem;
+  }
+  .video-principal { grid-area: video; }
+  .recomendados { grid-area: aside; }
+  .comentarios { grid-area: comentarios; }
+  .video-principal h2 { font-size: 1.5rem; }
+}
+ 
+/* desktop grande, 4 columnas en el grid */
+@media (min-width: 1280px) {
+  .grid-videos { grid-template-columns: repeat(4, 1fr); }
+}
+ 

@@ -1,0 +1,14 @@
+# entorno virtual de python
+venv/
+
+# cache de python
+__pycache__/
+
+# base de datos local, se recrea sola al levantar la API
+db.sqlite3
+
+# variables de entorno
+.env
+
+# logs del servidor
+*.log

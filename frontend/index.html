@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Youtubestr</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+  <!-- header con logo clickeable que recarga index.html -->
+  <header class="site-header">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <h1>Youtubestr</h1>
+    </a>
+  </header>
+ 
+  <!-- layout de dos columnas en desktop, sidebar a la izquierda y contenido a la derecha -->
+  <div class="layout-index">
+ 
+    <!-- sidebar visible solo en desktop, contiene el enlace a inicio -->
+    <aside class="sidebar" aria-label="Navegacion lateral">
+      <nav>
+        <ul class="sidebar-lista">
+          <li>
+            <a href="index.html" class="sidebar-item activo">
+              <span>Inicio</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+ 
+    <main class="site-main">
+ 
+      <!-- chips horizontales con las categorias, el JS lee el data-categoria al hacer click -->
+      <nav class="filtros" aria-label="Filtros por categoria">
+        <ul>
+          <li><button type="button" class="chip activo" data-categoria="todos">Todos</button></li>
+          <li><button type="button" class="chip" data-categoria="Musica">Musica</button></li>
+          <li><button type="button" class="chip" data-categoria="Videojuegos">Videojuegos</button></li>
+          <li><button type="button" class="chip" data-categoria="Podcasts">Podcasts</button></li>
+          <li><button type="button" class="chip" data-categoria="Deportes">Deportes</button></li>
+          <li><button type="button" class="chip" data-categoria="Entretenimiento">Entretenimiento</button></li>
+          <li><button type="button" class="chip" data-categoria="Educacion">Educacion</button></li>
+        </ul>
+      </nav>
+ 
+      <!-- catalogo de videos, el grid se llena dinamicamente desde la API -->
+      <section class="catalogo" aria-label="Catalogo de videos">
+        <div id="grid-videos" class="grid-videos">
+          <!-- aqui el JS pinta las cards con createElement -->
+        </div>
+        <!-- mensaje para estado vacio o error de fetch -->
+        <p id="mensaje-estado" class="mensaje-estado" hidden></p>
+      </section>
+ 
+    </main>
+ 
+  </div>
+ 
+  <!-- footer del sitio -->
+  <footer class="site-footer">
+    <p>Youtubestr - Parcial Web 2 - UIDE</p>
+  </footer>
+ 
+  <script src="script.js"></script>
+</body>
+</html>

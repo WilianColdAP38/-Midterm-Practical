@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Youtubestr - Reproductor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+  <!-- mismo header que index, el logo recarga la home -->
+  <header class="site-header">
+    <a href="index.html" class="logo" aria-label="Ir al inicio">
+      <h1>Youtubestr</h1>
+    </a>
+  </header>
+ 
+  <main class="reproductor">
+ 
+    <!-- video principal con su titulo, categoria y descripcion -->
+    <section class="video-principal" aria-label="Video en reproduccion">
+      <video id="video-player" controls></video>
+      <h2 id="video-titulo"></h2>
+      <p id="video-categoria" class="video-categoria"></p>
+      <p id="video-descripcion" class="video-descripcion"></p>
+    </section>
+ 
+    <!-- aside con 10 recomendados aleatorios, al lado en desktop y abajo en movil -->
+    <aside class="recomendados" aria-label="Videos recomendados">
+      <h3>Recomendados</h3>
+      <div id="lista-recomendados" class="lista-recomendados">
+        <!-- aqui el JS pinta los 10 recomendados -->
+      </div>
+    </aside>
+ 
+    <!-- seccion de comentarios con formulario y lista persistente -->
+    <section class="comentarios" aria-label="Comentarios del video">
+      <h3>Comentarios</h3>
+ 
+      <!-- formulario, el JS engancha el submit y hace POST con fetch -->
+      <form id="form-comentario" class="form-comentario">
+        <label for="input-autor">Nombre</label>
+        <input type="text" id="input-autor" name="autor" required maxlength="50" autocomplete="off">
+ 
+        <label for="input-contenido">Comentario</label>
+        <textarea id="input-contenido" name="contenido" required maxlength="500" rows="3"></textarea>
+ 
+        <button type="submit">Publicar</button>
+      </form>
+ 
+      <!-- lista de comentarios traidos del backend, se actualiza al publicar uno nuevo -->
+      <div id="lista-comentarios" class="lista-comentarios">
+        <!-- aqui el JS pinta los comentarios -->
+      </div>
+    </section>
+ 
+    <!-- mensaje para errores tipo video no encontrado o fallo de fetch -->
+    <p id="mensaje-estado" class="mensaje-estado" hidden></p>
+ 
+  </main>
+ 
+  <!-- footer del sitio -->
+  <footer class="site-footer">
+    <p>Youtubestr - Parcial Web 2 - UIDE</p>
+  </footer>
+ 
+  <script src="script.js"></script>
+</body>
+</html>
